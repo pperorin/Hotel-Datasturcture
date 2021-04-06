@@ -28,5 +28,6 @@ urlpatterns = [
     path('thankuser',views.addForm),
     path('login',views.login),
     path('inforuser',views.login),
+    path('inforSorted',views.sort),
     path('addForm',views.addForm)
 ]

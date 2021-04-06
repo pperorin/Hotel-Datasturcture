@@ -1,10 +1,24 @@
 {% extends 'layout.html' %}
 
 {% block content%}
-    <br>
-        <h1>ข้อมูลลูกค้า</h1>
-    </br>
-    <br>
-        {{infor}}
-    </br>
+    {% if press == 0 %}
+        <br>
+            <h1>ข้อมูลลูกค้า</h1>
+        </br>
+        <br>
+            {{infor}}
+        </br>
+        <form action = 'inforSorted' method = 'post'>
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <select class="form-select" id="inputGroupSelect01" name='sortday'>
+                  <option selected>เรียงวันที่</option>
+                  <a><option value="sortin">วันเช็คอิน</option></a>
+                  <a><option value="sortout">วันเช็คเอ้าท์</option></a>
+                </select>
+              </div>
+        </form>
+    {% elif press == 1%}
+        {{mook}}
+    {% endif %}
 {% endblock%}

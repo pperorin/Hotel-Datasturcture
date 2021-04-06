@@ -32,7 +32,8 @@ def login(request):
                 stinfor.push(d)
             f.close()
             return render(request,'inforuser.html',{
-            'infor' : stinfor.lststack()})
+            'infor' : stinfor.lststack(),
+            'press' : 0})
         else:
             return render(request,'login.html',{'check' : check})
     return render(request,'login.html')
@@ -92,7 +93,16 @@ def suitroom(request):
 
 def cabin(request):
     return render(request,'cabin.html')
-    
+
+def sort(request):
+    if request.method == 'POST':
+        sortday = request.POST['sortday']
+        if sortday == 'sortin':
+            return render(request,'inforuser.html',{'mook' : 'mook','press' : 1})
+        else:
+            return render(request,'inforuser.html',{'mook' : 'male','press' : 1})
+    return render(request,'inforuser.html',{'press' : 0})
+
 def addForm(request):
     if request.method == 'POST':
         username = request.POST['username']
