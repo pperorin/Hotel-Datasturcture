@@ -22,5 +22,9 @@ urlpatterns = [
     path('',views.hello,name='homepage'),
     path('searchroom',views.searchroom),
     path('reserved',views.reserved),
-    path('singleroom',views.singleroom)
+    path('singleroom',views.singleroom),
+    path('suitroom',views.suitroom),
+    path('cabin',views.cabin),
+    path('thankuser',views.thankuser),
+    path('addForm',views.addForm)
 ]

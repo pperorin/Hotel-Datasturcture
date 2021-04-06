@@ -1,12 +1,27 @@
 {% extends 'layout.html' %}
 
 {% block content%}
-<br>
-    <div class="container-fluid">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
-</br>
+    <br>
+    <form action='searchroom' method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">เบอร์มือถือ</span>
+            <input type="text" class="form-control" placeholder="Phone" name ='userphone' aria-label="Phone" aria-describedby="basic-addon1">
+        </div>
+        <div class="list-group" style="align-self: center; background-color: red;">
+            <button type="submit" class="list-group-item list-group-item-action">ค้นหา</button>
+        </div>  
+    </form>
+    <br>
+    {% if press == 1%}
+        {{user}}
+        {{userphone}}
+        {{typeroom}}
+        {{numroom}}
+        {{dayin}}
+        -
+        {{dayout}}
+    {% endif %}
+
+
 {% endblock%}

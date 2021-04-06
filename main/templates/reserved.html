@@ -2,26 +2,42 @@
 
 {% block content%}
     <br>
+    <form action = 'addForm' method = 'post'>
+        {% csrf_token %}
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">ชื่อ นามสกุล</span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" name ='username' aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">เบอร์มือถือ</span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" name ='phone' aria-label="Phone" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Text input with dropdown button">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">ประเภทห้องพัก</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">ห้องเดี่ยว</a></li>
-            <li><a class="dropdown-item" href="#">ห้องสูท</a></li>
-            <li><a class="dropdown-item" href="#">บ้านพัก</a></li>
-            </ul>
-        </div>
+            <span class="input-group-text">วันเช็คอิน</span>
+            <input type="text" class="form-control" aria-label="" name ='dayin'>
+            <span class="input-group-text">วันเช็คเอ้าท์</span>
+            <input type="text" class="form-control" aria-label="" name ='dayout'>
+            <span class="input-group-text">เดือน</span>
+            <input type="text" class="form-control" aria-label="" name ='month'>
+            <span class="input-group-text">ปี</span>
+            <input type="text" class="form-control" aria-label="" name ='year'>
+          </div>
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02">
-            <label class="input-group-text" for="inputGroupFile02">อัพโหลดสลิป</label>
-        </div>
+            <label class="input-group-text" for="inputGroupSelect01">ประเภทห้องพัก</label>
+            <select class="form-select" id="inputGroupSelect01" name='typeroom'>
+              <option selected>เลือกห้องพัก</option>
+              <option value="ห้องเดี่ยว">ห้องเดี่ยว</option>
+              <option value="ห้องสูท">ห้องสูท</option>
+              <option value="บ้านพัก">บ้านพัก</option>
+            </select>
+          </div>
+        <br>
+        <div class="list-group">
+            <CENTER>
+                <a href="/thankuser" class="list-group-item list-group-item-action">ยืนยันการจอง</a>
+            </CENTER>
+        </div>  
+        
+    </form>
     </br>
 {% endblock%}
