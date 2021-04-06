@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content%}
+<br>
+<form action='login' method="post">
+    {% csrf_token %}
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">ชื่อผู้ใช้งาน</span>
+        <input type="text" class="form-control" placeholder="" name ='user' aria-label="Phone" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">รหัสผ่าน</span>
+        <input type="text" class="form-control" placeholder="" name ='password' aria-label="Phone" aria-describedby="basic-addon1">
+    </div>
+    <div class="list-group" style="align-self: center; background-color: red;">
+        <button type="submit" class="list-group-item list-group-item-action">ล็อคอิน</button>
+    </div>  
+</form>
+<br>
+{% if check == 0%}
+    <h1>รหัสผิดจ้า</h1>
+{% endif %}
+
+{% endblock%}

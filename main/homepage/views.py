@@ -5,9 +5,42 @@ from datastruct import views
 def hello(request):
     return render(request,'home.html')
 
+def login(request):
+    if request.method == 'POST':
+        check = 0
+        user = request.POST['user'] 
+        password = request.POST['password'] 
+        f = open('file/login.txt', 'r', encoding='utf8')
+        s = f.readline()
+        # spliting line to key and value
+        d = s.split()
+        realuser = d[0]
+        realpassword = d[1]
+        f.close()
+        if user == realuser:
+            if password == realpassword:
+                check = 1
+        if check == 1:
+            stinfor = views.Stack()
+            f = open('file/username.txt', 'r', encoding='utf8')
+            while True:
+                s = f.readline()
+                if s == '': # check file end
+                    break
+                # spliting line to key and value
+                d = s.rstrip()
+                stinfor.push(d)
+            f.close()
+            return render(request,'inforuser.html',{
+            'infor' : stinfor.lststack()})
+        else:
+            return render(request,'login.html',{'check' : check})
+    return render(request,'login.html')
+
 def searchroom(request):
     press = 0
     if request.method == 'POST':
+        notfound = ''
         press = 1
         userphone = request.POST['userphone']
         stuser = views.Stack()
@@ -43,6 +76,9 @@ def searchroom(request):
                 'dayout' : stdayout.find(count)
                 })
             count+=1
+        press = 2
+        notfound = 'ไม่พบข้อมูล'
+        return render(request,'searchroom.html',{'notfound' : notfound,'press' : press})
     return render(request,'searchroom.html',{'press' : press})
 
 def reserved(request):
@@ -56,9 +92,6 @@ def suitroom(request):
 
 def cabin(request):
     return render(request,'cabin.html')
-
-def thankuser(request):
-    return render(request,'thankuser.html')
     
 def addForm(request):
     if request.method == 'POST':
@@ -122,13 +155,13 @@ def addForm(request):
                 f.write(str(i) + '\n')
             f.close()
             
-
-        f = open('file/username.txt', 'a', encoding='utf8')
-        f.write('Username ' + username + ' Phone ' + phone + ' typeroom ' + typeroom + 
+        fl = open('file/username.txt', 'a', encoding='utf8')
+        fl.write('Username ' + username + ' Phone ' + phone + ' typeroom ' + typeroom + 
         ' หมายเลขห้องพัก ' + str(numroom) +
         ' วันเช็คอิน ' + dayin + '/' + month + '/' + year + ' วันเช็คเอ้าท์ ' + dayout + '/' + month + '/' + year + '\n')
-        f.close()
-        return render(request,'addForm.html')
+        print("hi from file")
+        fl.close()
+        return render(request,'thankuser.html')
     return render(request,'addForm.html')
 
 

@@ -25,6 +25,8 @@ urlpatterns = [
     path('singleroom',views.singleroom),
     path('suitroom',views.suitroom),
     path('cabin',views.cabin),
-    path('thankuser',views.thankuser),
+    path('thankuser',views.addForm),
+    path('login',views.login),
+    path('inforuser',views.login),
     path('addForm',views.addForm)
 ]
