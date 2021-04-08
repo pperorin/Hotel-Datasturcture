@@ -31,9 +31,11 @@ def login(request):
                 d = s.rstrip()
                 stinfor.push(d)
             f.close()
+            if stinfor.size() == 0:
+                return render(request,'inforuser.html',{'press' : 0})
             return render(request,'inforuser.html',{
             'infor' : stinfor.lststack(),
-            'press' : 0})
+            'press' : 1})
         else:
             return render(request,'login.html',{'check' : check})
     return render(request,'login.html')
@@ -94,14 +96,73 @@ def suitroom(request):
 def cabin(request):
     return render(request,'cabin.html')
 
+def checkout(request):
+    press = 3
+    Qinfor = views.Queue()
+    f = open('file/username.txt', 'r', encoding='utf8')
+    while True:
+        s = f.readline()
+        if s == '': # check file end
+            break
+        # spliting line to key and value
+        d = s.rstrip()
+        Qinfor.enQ(d)
+    f.close()
+    if Qinfor.size() == 0:
+        return render(request,'inforuser.html',{'press' : 0})
+    sorting = views.sorting()
+    sorting.sortcheckout(Qinfor.show())
+    cur = Qinfor.top().split()
+    numroom = cur[7]
+    for i in numroom:
+        firstnum = i
+        break
+    Qinfor.deQ()
+    f = open('file/username.txt', 'w', encoding='utf8')
+    for i in Qinfor.show():
+        f.write(str(i) + '\n')
+    f.close()
+    print(numroom)
+    print(firstnum)
+    if firstnum == '0':
+        f = open('file/cabin.txt', 'a', encoding='utf8')
+        f.write(str(numroom) + '\n')
+        f.close()
+    elif firstnum == '1':
+        f = open('file/singleroom.txt', 'a', encoding='utf8')
+        f.write(str(numroom) + '\n')
+        f.close()
+    elif firstnum == '2':
+        f = open('file/suitroom.txt', 'a', encoding='utf8')
+        f.write(str(numroom) + '\n')
+        f.close()
+    return render(request,'inforuser.html',{'fin' : Qinfor.show(),'press' : press})
+
 def sort(request):
     if request.method == 'POST':
         sortday = request.POST['sortday']
-        if sortday == 'sortin':
-            return render(request,'inforuser.html',{'mook' : 'mook','press' : 1})
+        stinfor = views.Stack()
+        f = open('file/username.txt', 'r', encoding='utf8')
+        while True:
+            s = f.readline()
+            if s == '': # check file end
+                break
+            # spliting line to key and value
+            d = s.rstrip()
+            stinfor.push(d)
+        f.close()
+        sorting = views.sorting()
+        if stinfor.size() == 0:
+            return render(request,'inforuser.html',{'press' : 0})
+        elif sortday == 'sortin':
+            return render(request,'inforuser.html',{'fin' : sorting.sortcheckin(stinfor.lststack()),'press' : 2})
+        elif sortday == 'sortout':
+            return render(request,'inforuser.html',{'fin' : sorting.sortcheckout(stinfor.lststack()),'press' : 2})
         else:
-            return render(request,'inforuser.html',{'mook' : 'male','press' : 1})
-    return render(request,'inforuser.html',{'press' : 0})
+            return render(request,'inforuser.html',{
+            'infor' : stinfor.lststack(),
+            'press' : 1})
+    return render(request,'inforuser.html',{'press' : 1})
 
 def addForm(request):
     if request.method == 'POST':

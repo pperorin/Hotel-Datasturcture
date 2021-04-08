@@ -29,5 +29,6 @@ urlpatterns = [
     path('login',views.login),
     path('inforuser',views.login),
     path('inforSorted',views.sort),
+    path('checkout',views.checkout),
     path('addForm',views.addForm)
 ]
