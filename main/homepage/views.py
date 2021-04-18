@@ -233,6 +233,5 @@ def addForm(request):
         print("hi from file")
         fl.close()
         return render(request,'thankuser.html')
-    return render(request,'addForm.html')
 
 
